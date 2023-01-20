@@ -26,7 +26,7 @@ list(GET nodelet_VERSION_LIST 2 nodelet_VERSION_PATCH)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/include/nodelet/version.h.in ${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_INCLUDE_DESTINATION}/nodelet/version.h)
 
 ## Find Boost (only headers)
-find_package(Boost REQUIRED)
+find_package(Boost COMPONENTS thread REQUIRED)
 
 ## Find UUID libraries
 find_package(UUID REQUIRED)
