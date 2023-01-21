@@ -26,7 +26,7 @@ list(GET nodelet_VERSION_LIST 2 nodelet_VERSION_PATCH)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/include/nodelet/version.h.in ${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_INCLUDE_DESTINATION}/nodelet/version.h)
 
 ## Find Boost (only headers)
-find_package(Boost REQUIRED)
+find_package(Boost COMPONENTS thread system chrono REQUIRED)
 
 ## Find UUID libraries
 find_package(UUID REQUIRED)
@@ -54,11 +54,11 @@ include_directories(
 #add_definitions(-DNODELET_QUEUE_DEBUG)
 
 add_library(nodeletlib src/nodelet_class.cpp src/loader.cpp src/callback_queue.cpp src/callback_queue_manager.cpp)
-target_link_libraries(nodeletlib ${catkin_LIBRARIES} ${BOOST_LIBRARIES})
+target_link_libraries(nodeletlib ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 add_dependencies(nodeletlib ${nodelet_EXPORTED_TARGETS})
 
 add_executable(nodelet src/nodelet.cpp)
-target_link_libraries(nodelet nodeletlib ${UUID_LIBRARIES} ${catkin_LIBRARIES} ${BOOST_LIBRARIES})
+target_link_libraries(nodelet nodeletlib ${UUID_LIBRARIES} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
 # install
 catkin_install_python(PROGRAMS scripts/declared_nodelets scripts/list_nodelets
